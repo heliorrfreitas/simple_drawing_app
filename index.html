@@ -12,9 +12,8 @@
 <style>
 
 body{
-    background-color: gray;
+    background-color: #333333;
 }
-
 
 .button {
   border: none;
@@ -29,11 +28,19 @@ body{
   border-radius: 50%;
 }
 
+.button-selected {
+    border: solid;
+    border-color: white;}
 .button1 {background-color: black;}
 .button2 {background-color: green;}
 .button3 {background-color: blue;}
 .button4 {background-color: yellow;}
 .button5 {background-color: red;}
+.button6 {background-color: pink;}
+.button7 {background-color: orange;}
+.button8 {background-color: purple;}
+.button9 {background-color: brown;}
+.button10 {background-color: gray;}
 
 
 </style>
@@ -42,11 +49,17 @@ body{
 <br>
 <button id="clear" onclick="clear()">Clear</button>
 
-<button id="black" class="button button1" onclick="selectColor('black', this.id);"></button>
+<button id="black" class="button button1 button-selected" onclick="selectColor('black', this.id);"></button>
 <button id="green" class="button button2" onclick="selectColor('green', this.id);"></button>
 <button id="blue" class="button button3" onclick="selectColor('blue', this.id);"></button>
 <button id="yellow" class="button button4" onclick="selectColor('yellow', this.id);"></button>
 <button id="red" class="button button5" onclick="selectColor('red', this.id);"></button>
+<button id="pink" class="button button6" onclick="selectColor('pink', this.id);"></button>
+<button id="orange" class="button button7" onclick="selectColor('orange', this.id);"></button>
+<button id="purple" class="button button8" onclick="selectColor('purple', this.id);"></button>
+<button id="brown" class="button button9" onclick="selectColor('brown', this.id);"></button>
+<button id="gray" class="button button10" onclick="selectColor('gray', this.id);"></button>
+
 
 </body>
 <script>
@@ -56,11 +69,11 @@ let isDrawing = false;
 let x = 0;
 let y = 0;
 let pencilColor = "black";
+let previousSelectedButtonId = "black";
 
+const buttonSelectedClass = "button-selected";
 const canvas = document.getElementById('panelCanvas');
 const context = canvas.getContext('2d');
-
-// The x and y offset of the canvas from the edge of the page
 const rect = canvas.getBoundingClientRect();
 
 drawPanel();
@@ -109,7 +122,19 @@ function drawPanel(){
 
 function selectColor(color, buttonId){
     pencilColor = color;
-    console.log(color);
+    unselectPreviousColor();
+    selectCurrentColor(buttonId);
+}
+
+function unselectPreviousColor(){
+    let previousSelectedButton = document.getElementById(previousSelectedButtonId);
+    previousSelectedButton.classList.remove(buttonSelectedClass)
+}
+
+function selectCurrentColor(buttonId){
+    let button = document.getElementById(buttonId);
+    button.className += " " +buttonSelectedClass;
+    previousSelectedButtonId = buttonId;
 }
 
 </script>
