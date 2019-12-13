@@ -73,6 +73,8 @@ Choose Pencil Color
     <button class="button button11" onclick="increaseEraserSize()"><i class="fa fa-plus"></i></button>
     <button class="button button11" onclick="decreaseEraserSize()"><i class="fa fa-minus"></i></button>
 </div>
+<a id="download-button" class="button button11" onclick="downloadImage()">Download Image</a>
+
 </div>
 
 </body>
@@ -89,7 +91,7 @@ const buttonSelectedClass = "button-selected";
 const canvas = document.getElementById('panelCanvas');
 const context = canvas.getContext('2d');
 const rect = canvas.getBoundingClientRect();
-const minimumEraserSize = 5;
+const minimumEraserSize = 10;
 
 drawEmptyPanel();
 
@@ -168,7 +170,14 @@ function decreaseEraserSize(){
     if(eraserSize > minimumEraserSize){
         eraserSize -= 5;
     }
-    console.log(eraserSize);
+}
+
+function downloadImage(){
+    let link = document.getElementById("download-button");
+    link.href = canvas.toDataURL();
+    link.download = "myart.png";
+
+    return link;
 }
 
 </script>
