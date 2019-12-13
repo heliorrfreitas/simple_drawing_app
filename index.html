@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <style>
@@ -45,6 +46,7 @@ div{
 .button8 {background-color: purple;}
 .button9 {background-color: brown;}
 .button10 {background-color: gray;}
+.button11 {background-color: white; color:black;}
 
 
 </style>
@@ -64,7 +66,14 @@ Choose Pencil Color
 <button id="brown" class="button button9" onclick="selectColor('brown', this.id);"></button>
 <button id="gray" class="button button10" onclick="selectColor('gray', this.id);"></button>
 </div>
-<div><button id="clear" onclick="drawEmptyPanel()">Clear Panel</button></div>
+<div>
+<div><button id="clear" onclick="drawEmptyPanel()" class="button button11">Clear Panel</button></div>
+<div style="border:solid; border-color:orange;">
+    <button id="white" class="button button11" onclick="selectColor('white', this.id);">Eraser</button>
+    <button class="button button11" onclick="increaseEraserSize()"><i class="fa fa-plus"></i></button>
+    <button class="button button11" onclick="decreaseEraserSize()"><i class="fa fa-minus"></i></button>
+</div>
+</div>
 
 </body>
 <script>
@@ -74,11 +83,13 @@ let x = 0;
 let y = 0;
 let pencilColor = "black";
 let previousSelectedButtonId = "black";
+let eraserSize = 10;
 
 const buttonSelectedClass = "button-selected";
 const canvas = document.getElementById('panelCanvas');
 const context = canvas.getContext('2d');
 const rect = canvas.getBoundingClientRect();
+const minimumEraserSize = 5;
 
 drawEmptyPanel();
 
@@ -116,11 +127,19 @@ function drawEmptyPanel(){
 
 function drawLine(context, x1, y1, x2, y2) {
   context.beginPath();
-  context.strokeStyle = pencilColor;
-  context.lineWidth = 1;
-  context.moveTo(x1, y1);
-  context.lineTo(x2, y2);
-  context.stroke();
+  if(pencilColor === "white"){
+      //context.arc(x1, y1, eraserSize, 0, 2 * Math.PI, true);
+      context.rect(x1, y1, eraserSize, eraserSize);
+      context.fillStyle = "#FFFFFF";
+      context.fill();
+  }else{
+      context.strokeStyle = pencilColor;
+      context.lineWidth = 2;
+      context.moveTo(x1, y1);
+      context.lineTo(x2, y2);
+      context.stroke();
+  }
+
   context.closePath();
 }
 
@@ -141,6 +160,22 @@ function selectCurrentColor(buttonId){
     previousSelectedButtonId = buttonId;
 }
 
-</script>
+function increaseEraserSize(){
+    eraserSize += 5;
+}
 
+function decreaseEraserSize(){
+    if(eraserSize > minimumEraserSize){
+        eraserSize -= 5;
+    }
+    console.log(eraserSize);
+}
+
+</script>
+<!--
+references :
+
+https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
+
+ -->
 </html>
