@@ -36,44 +36,43 @@ div{
 .button-selected {
     border: solid;
     border-color: white;}
-.button1 {background-color: black;}
-.button2 {background-color: green;}
-.button3 {background-color: blue;}
-.button4 {background-color: yellow;}
-.button5 {background-color: red;}
-.button6 {background-color: pink;}
-.button7 {background-color: orange;}
-.button8 {background-color: purple;}
-.button9 {background-color: brown;}
-.button10 {background-color: gray;}
-.button11 {background-color: white; color:black;}
+.button-color-black {background-color: black;}
+.button-color-green {background-color: green;}
+.button-color-blue {background-color: blue;}
+.button-color-yellow {background-color: yellow;}
+.button-color-red {background-color: red;}
+.button-color-pink {background-color: pink;}
+.button-color-orange {background-color: orange;}
+.button-color-purple {background-color: purple;}
+.button-color-brown {background-color: brown;}
+.button-color-gray {background-color: gray;}
+.button-functions {background-color: white; color:black;}
 
 
 </style>
 <body>
-<canvas id="panelCanvas" width="800" height="560"></canvas>
+<canvas id="panelCanvas" width="680" height="380"></canvas>
 
 <div>
 Choose Pencil Color
-<button id="black" class="button button1 button-selected" onclick="selectColor('black', this.id);"></button>
-<button id="green" class="button button2" onclick="selectColor('green', this.id);"></button>
-<button id="blue" class="button button3" onclick="selectColor('blue', this.id);"></button>
-<button id="yellow" class="button button4" onclick="selectColor('yellow', this.id);"></button>
-<button id="red" class="button button5" onclick="selectColor('red', this.id);"></button>
-<button id="pink" class="button button6" onclick="selectColor('pink', this.id);"></button>
-<button id="orange" class="button button7" onclick="selectColor('orange', this.id);"></button>
-<button id="purple" class="button button8" onclick="selectColor('purple', this.id);"></button>
-<button id="brown" class="button button9" onclick="selectColor('brown', this.id);"></button>
-<button id="gray" class="button button10" onclick="selectColor('gray', this.id);"></button>
+<button id="black" class="button button-color-black button-selected" onclick="selectColor('black', this.id);"></button>
+<button id="green" class="button button-color-green" onclick="selectColor('green', this.id);"></button>
+<button id="blue" class="button button-color-blue" onclick="selectColor('blue', this.id);"></button>
+<button id="yellow" class="button button-color-yellow" onclick="selectColor('yellow', this.id);"></button>
+<button id="red" class="button button-color-red" onclick="selectColor('red', this.id);"></button>
+<button id="pink" class="button button-color-pink" onclick="selectColor('pink', this.id);"></button>
+<button id="orange" class="button button-color-orange" onclick="selectColor('orange', this.id);"></button>
+<button id="purple" class="button button-color-purple" onclick="selectColor('purple', this.id);"></button>
+<button id="brown" class="button button-color-brown" onclick="selectColor('brown', this.id);"></button>
+<button id="gray" class="button button-color-gray" onclick="selectColor('gray', this.id);"></button>
 </div>
 <div>
-<div><button id="clear" onclick="drawEmptyPanel()" class="button button11">Clear Panel</button></div>
-<div style="border:solid; border-color:orange;">
-    <button id="white" class="button button11" onclick="selectColor('white', this.id);">Eraser</button>
-    <button class="button button11" onclick="increaseEraserSize()"><i class="fa fa-plus"></i></button>
-    <button class="button button11" onclick="decreaseEraserSize()"><i class="fa fa-minus"></i></button>
-</div>
-<a id="download-button" class="button button11" onclick="downloadImage()">Download Image</a>
+<button id="clear" onclick="drawEmptyPanel()" class="button button-functions">Clear Panel</button>
+    <button id="white" class="button button-functions" onclick="selectColor('white', this.id);">Eraser</button>
+    <button class="button button-functions" onclick="increaseEraserSize();" title="Increase eraser size"><i class="fa fa-plus"></i></button>
+    <button class="button button-functions" onclick="decreaseEraserSize();" title="Decrease eraser size"><i class="fa fa-minus"></i></button>
+    <a id="download-button" class="button button-functions" onclick="downloadImage();">Download Image</a>
+
 
 </div>
 
@@ -121,7 +120,6 @@ window.addEventListener('mouseup', e => {
 
 function drawEmptyPanel(){
     context.beginPath();
-    context.clearRect(0, 0, canvas.width, canvas.height);
     context.fillStyle = '#FFFFFF';
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.closePath();
@@ -130,7 +128,6 @@ function drawEmptyPanel(){
 function drawLine(context, x1, y1, x2, y2) {
   context.beginPath();
   if(pencilColor === "white"){
-      //context.arc(x1, y1, eraserSize, 0, 2 * Math.PI, true);
       context.rect(x1, y1, eraserSize, eraserSize);
       context.fillStyle = "#FFFFFF";
       context.fill();
@@ -175,7 +172,7 @@ function decreaseEraserSize(){
 function downloadImage(){
     let link = document.getElementById("download-button");
     link.href = canvas.toDataURL();
-    link.download = "myart.png";
+    link.download = "my-art.png";
 
     return link;
 }
@@ -184,7 +181,10 @@ function downloadImage(){
 <!--
 references :
 
+simple drawing on canvas
 https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
 
+download link
+https://jsfiddle.net/codepo8/V6ufG/2/
  -->
 </html>
